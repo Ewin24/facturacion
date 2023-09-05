@@ -9,27 +9,15 @@
             rel="stylesheet"
             integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
             crossorigin="anonymous">
-        <script>
-            let eliminar = async (id) => {
-
-            let config = {
-                method: "DELETE",
-                headers: { 'Content-type': 'application/json' },
-
-            }
-            let peticion = await fetch(`https://64f203790e1e60602d249348.mockapi.io/producto/` + id, config);
-            let res = await peticion.json();
-            return res;
-            }
-        </script>
-
-        <script type="module" src="js/main.js" defer></script>
+        <script src="../js/productos.js" defer></script>
     </head>
     <body>
+        <a href="../index.html"></a>
+
         <div class="container text-center">
             <div class="table-responsive">
                 <h1>Productos</h1>
-                <div class="d-grid m-2">
+                <div class="d-grid my-2">
                     <button type="button" name id="btn-adicionar"
                         class="btn btn-success">Adicionar
                         Producto</button>
@@ -59,9 +47,6 @@
                             </td>
                         </tr> -->
                     </tbody>
-                    <tfoot>
-
-                    </tfoot>
                 </table>
             </div>
         </div>
