@@ -4,15 +4,16 @@ btnAdicionar.addEventListener('click', () => {
 });
 
 let cargarUsuarios = async () => {
-    let elementoPadre = document.querySelector("#tabla-productos");
+    let elementoPadre = document.querySelector("#tabla-usuarios");
     let productosData = await obtener();
 
-    let elementosProducto = `
+    let elementosUsuario = `
             ${productosData.map(value => `
                 <tr class="table-primary">
                     <td scope="row">${value.id}</td>
+                    <td scope="row">${value.cedula}</td>
                     <td>${value.nombre}</td>
-                    <td>${value.descripcion}</td>
+                    <td>${value.apellido}</td>
                     <td>
                         <button type="button" onclick="actualizar(${value.id})" class="btn btn-primary">Editar</button>
                         <button type="button" onclick="eliminar(${value.id})" class="btn btn-danger">Eliminar</button>
@@ -21,11 +22,11 @@ let cargarUsuarios = async () => {
             `).join(" ")}
         `;
     elementoPadre.innerHTML = '';
-    elementoPadre.insertAdjacentHTML("afterbegin", elementosProducto);
+    elementoPadre.insertAdjacentHTML("afterbegin", elementosUsuario);
 }
 
 let obtener = async () => {
-    let peticion = await fetch("https://64f203790e1e60602d249348.mockapi.io/producto");
+    let peticion = await fetch("https://64f203790e1e60602d249348.mockapi.io/usuarios");
     let res = await peticion.json();
     return res;
 }
@@ -33,8 +34,9 @@ let obtener = async () => {
 
 let enviar = async () => {
     let obj = {
-        "nombre": prompt("Ingrese el nombre del nuevo producto: "),
-        "descripcion": prompt("Ingrese la descripcion del nuevo producto: ")
+        "cedula": prompt("Ingrese la cedula del nuevo usuario: "),
+        "nombre": prompt("Ingrese el nombre del nuevo usuario: "),
+        "apellido": prompt("Ingrese el apellido del nuevo usuario: ")
     };
     let config = {
         method: "POST",
@@ -42,7 +44,7 @@ let enviar = async () => {
         body: JSON.stringify(obj)
 
     }
-    let peticion = await fetch("https://64f203790e1e60602d249348.mockapi.io/producto", config);
+    let peticion = await fetch("https://64f203790e1e60602d249348.mockapi.io/usuarios", config);
     let res = await peticion.json();
     cargarUsuarios();
     // return res;
@@ -51,8 +53,9 @@ let enviar = async () => {
 
 let actualizar = async (id) => {
     let obj = {
-        "nombre": prompt("Ingrese el nuevo nombre del producto: "),
-        "descripcion": prompt("Ingrese la nueva descripcion del producto: ")
+        "cedula": prompt("Ingrese la nueva cedula del usuario: "),
+        "nombre": prompt("Ingrese el nuevo nombre del usuario: "),
+        "apellido": prompt("Ingrese el nuevo apellido del usuario: ")
     }
     let config = {
         method: "PUT",
@@ -60,18 +63,19 @@ let actualizar = async (id) => {
         body: JSON.stringify(obj)
     }
 
-    let peticion = await fetch(`https://64f203790e1e60602d249348.mockapi.io/producto/` + id, config)
+    let peticion = await fetch(`https://64f203790e1e60602d249348.mockapi.io/usuarios/` + id, config)
     let res = await peticion.json();
     cargarUsuarios();
     // return res;
 }
+
 
 let eliminar = async (id) => {
     let config = {
         method: "DELETE",
         headers: { 'Content-type': 'application/json' },
     }
-    let peticion = await fetch(`https://64f203790e1e60602d249348.mockapi.io/producto/` + id, config);
+    let peticion = await fetch(`https://64f203790e1e60602d249348.mockapi.io/usuarios/` + id, config);
     let res = await peticion.json();
     cargarUsuarios();
     // return res;
